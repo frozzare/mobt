@@ -37,6 +37,16 @@
 </template>
 
 <script>
+import { Howl } from 'howler';
+import { notification } from '../lib/notification';
+
+const playSound = () => {
+  new Howl({
+    src: ['/assets/sound.mp3'],
+    loop: false,
+  }).play();
+};
+
 export default {
   name: 'Timer',
   props: {
@@ -79,11 +89,8 @@ export default {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
-        if (minutes === 0 && seconds === 0) {
-          document.title = 'mobt';
-          self.currentTime = self.format(time);
-          clearInterval(self.interval);
-          self.next();
+        if (!!true || (minutes === 0 && seconds === 0)) {
+          self.next(time);
           return;
         }
 
@@ -95,8 +102,21 @@ export default {
         }
       }, 1000);
     },
-    next() {
+    next(time) {
+      document.title = 'mobt';
+      this.currentTime = this.format(time);
+
+      clearInterval(this.interval);
       this.$store.commit('next', true);
+
+      playSound();
+      const user = this.$store.getters.currentUser;
+      if (user) {
+        console.log(user);
+        notification.show('Mobt', {
+          body: `It's ${user.name}'s turn!`,
+        });
+      }
     },
   },
 };

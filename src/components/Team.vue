@@ -27,7 +27,7 @@
         <li
           v-for="(item, index) in people"
           v-bind:key="index"
-          v-bind:class="{ 'font-bold': index === 0 }"
+          v-bind:class="{ 'font-bold': index === active }"
         >
           <div class="mt-1 flex">
             <div class="flex items-stretch flex-grow">
@@ -81,6 +81,9 @@ export default {
     name: '',
   }),
   computed: {
+    active() {
+      return store.state.active;
+    },
     people() {
       return store.state.people;
     },
