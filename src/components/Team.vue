@@ -73,7 +73,7 @@
 import { store } from '../store';
 import emojisList from 'emoji.json/emoji-compact.json';
 
-const emojis = emojisList.filter((p) => p.length < 5);
+const emojis = emojisList.filter((p) => p.length === 4);
 
 export default {
   name: 'Team',

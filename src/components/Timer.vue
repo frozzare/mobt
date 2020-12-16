@@ -115,6 +115,7 @@ export default {
         console.log(user);
         notification.show('Mobt', {
           body: `It's ${user.name}'s turn!`,
+          icon: '/assets/alarm-clock.png',
         });
       }
     },
