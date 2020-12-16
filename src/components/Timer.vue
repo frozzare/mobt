@@ -1,16 +1,13 @@
 <template>
   <div>
     <div class="mb-5 text-center">
-      <p class="block text-sm font-medium text-gray-700">Time left</p>
+      <p class="block text-sm font-bold text-gray-700">Time left</p>
       <p class="text-4xl text-black" v-if="currentTime">
         {{ currentTime }}
       </p>
-      <p v-if="!currentTime">
-        Time's Up!
-      </p>
     </div>
     <div>
-      <label for="time" class="block text-sm font-medium text-gray-700"
+      <label for="time" class="block text-sm font-bold text-gray-700"
         >Minutes</label
       >
       <div class="mt-1 flex rounded-md shadow-sm">
@@ -26,10 +23,17 @@
         </div>
 
         <button
-          class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-          @click="start()"
+          class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+          @click="run"
         >
-          <span>Start</span>
+          <span>{{ running && !paused ? 'Pause' : 'Start' }}</span>
+        </button>
+
+        <button
+          class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+          @click="reset"
+        >
+          <span>Reset</span>
         </button>
       </div>
     </div>
@@ -56,13 +60,44 @@ export default {
     },
   },
   data: () => ({
+    paused: false,
     interval: null,
     currentTime: '30:00',
     time: 30,
+    timer: 0,
+    minutes: 0,
+    seconds: 0,
   }),
   methods: {
+    reset() {
+      this.running = false;
+      this.paused = false;
+      this.timer = 0;
+      this.minutes = 0;
+      this.seconds = 0;
+      this.currentTime = `${this.time}:00`;
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
+    },
+    run() {
+      if (this.running) {
+        this.pause();
+      } else {
+        this.start();
+      }
+    },
     start() {
+      this.running = true;
+      this.paused = false;
       this.countdown();
+    },
+    pause() {
+      this.running = false;
+      this.paused = true;
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
     },
     updateTime() {
       if (!this.interval) {
@@ -75,30 +110,32 @@ export default {
       return minutes + ':' + seconds;
     },
     countdown() {
+      const self = this;
+
       if (this.interval) {
         clearInterval(this.interval);
       }
 
-      const self = this;
-      const time = this.time;
-      let timer = 60 * time;
-      let minutes = 0;
-      let seconds = 0;
+      if (!this.timer) {
+        this.timer = 60 * this.time;
+        this.minutes = 0;
+        this.seconds = 0;
+      }
 
       this.interval = setInterval(() => {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+        self.minutes = parseInt(self.timer / 60, 10);
+        self.seconds = parseInt(self.timer % 60, 10);
 
-        if (minutes === 0 && seconds === 0) {
-          self.next(time);
+        if (self.minutes === 0 && self.seconds === 0) {
+          self.next(self.time);
           return;
         }
 
-        self.currentTime = self.format(minutes, seconds);
+        self.currentTime = self.format(self.minutes, self.seconds);
         document.title = self.currentTime;
 
-        if (--timer < 0) {
-          timer = 60 * time;
+        if (--self.timer < 0) {
+          self.timer = 60 * self.time;
         }
       }, 1000);
     },
