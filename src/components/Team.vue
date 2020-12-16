@@ -73,7 +73,9 @@ export default {
       this.$store.state.names.splice(index, 1);
       this.names = this.$store.state.names;
     },
-    skip() {},
+    skip() {
+      this.$store.commit('next');
+    },
   },
 };
 </script>

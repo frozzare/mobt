@@ -68,7 +68,7 @@ export default {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
 
-        if (!!true || (minutes === 0 && seconds === 0)) {
+        if (minutes === 0 && seconds === 0) {
           document.title = 'mobt';
           clearInterval(self.interval);
           self.next();
