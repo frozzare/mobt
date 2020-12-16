@@ -21,6 +21,7 @@
             id="time"
             class="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300"
             v-model="time"
+            @change="updateTime"
           />
         </div>
 
@@ -53,6 +54,16 @@ export default {
     start() {
       this.countdown();
     },
+    updateTime() {
+      if (!this.interval) {
+        this.currentTime = this.format(this.time);
+      }
+    },
+    format(minutes, seconds = 0) {
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      seconds = seconds < 10 ? '0' + seconds : seconds;
+      return minutes + ':' + seconds;
+    },
     countdown() {
       if (this.interval) {
         clearInterval(this.interval);
@@ -70,15 +81,13 @@ export default {
 
         if (minutes === 0 && seconds === 0) {
           document.title = 'mobt';
+          self.currentTime = self.format(time);
           clearInterval(self.interval);
           self.next();
           return;
         }
 
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-
-        self.currentTime = minutes + ':' + seconds;
+        self.currentTime = self.format(minutes, seconds);
         document.title = self.currentTime;
 
         if (--timer < 0) {
