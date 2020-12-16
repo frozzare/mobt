@@ -27,7 +27,7 @@
         <li
           v-for="(name, index) in names"
           v-bind:key="index"
-          v-bind:class="{ 'font-bold': index === $store.state.active }"
+          v-bind:class="{ 'font-bold': index === 0 }"
         >
           <div class="mt-1 flex">
             <div class="flex items-stretch flex-grow">
@@ -57,21 +57,25 @@
 </template>
 
 <script>
+import { store } from '../store';
 export default {
   name: 'Team',
   data: () => ({
     name: '',
-    names: [],
   }),
+  computed: {
+    names() {
+      return store.state.names;
+    },
+  },
   methods: {
     addName() {
-      this.$store.state.names.push(this.name);
-      this.names = this.$store.state.names;
+      this.$store.commit('setNames', this.names.concat(this.name));
       this.name = '';
     },
     removeName(index) {
-      this.$store.state.names.splice(index, 1);
-      this.names = this.$store.state.names;
+      this.names.splice(index, 1);
+      this.$store.commit('setNames', this.names);
     },
     skip() {
       this.$store.commit('next');
