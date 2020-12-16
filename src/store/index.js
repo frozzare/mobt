@@ -17,17 +17,17 @@ export const store = createStore({
   plugins: [vuexLocal.plugin],
   state: () => ({
     active: 0,
-    names: [],
+    people: [],
   }),
   mutations: {
-    setNames(state, names) {
-      state.names = Array.from(names);
+    setPeople(state, people) {
+      state.people = Array.from(people);
     },
     next(state, sound = false) {
       if (sound) {
         playSound();
       }
-      if (state.names.length === state.active + 1) {
+      if (state.people.length === state.active + 1) {
         state.active = 0;
       } else {
         state.active++;

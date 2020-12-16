@@ -11,6 +11,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "date-fns": "^2.16.1",
+    "emoji.json": "^13.1.0",
     "howler": "^2.2.1",
     "vue": "^3.0.0",
     "vuex": "^4.0.0-rc.2",
