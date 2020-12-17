@@ -11,6 +11,7 @@
             class="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300"
             placeholder="Name"
             v-model="name"
+            v-on:keyup.enter="addName"
           />
         </div>
         <button
