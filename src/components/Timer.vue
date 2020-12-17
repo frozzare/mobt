@@ -127,7 +127,7 @@ export default {
         self.seconds = parseInt(self.timer % 60, 10);
 
         if (self.minutes === 0 && self.seconds === 0) {
-          self.next(self.time);
+          self.next();
           return;
         }
 
@@ -139,14 +139,12 @@ export default {
         }
       }, 1000);
     },
-    next(time) {
-      document.title = 'mobt';
-      this.currentTime = this.format(time);
-
-      clearInterval(this.interval);
+    next() {
+      this.reset();
       this.$store.commit('next', true);
 
       playSound();
+
       const user = this.$store.getters.currentUser;
       if (user) {
         console.log(user);
