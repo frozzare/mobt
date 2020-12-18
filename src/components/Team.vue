@@ -79,9 +79,21 @@
 
 <script>
 import { store } from '../store';
-import emojisList from 'emoji.json/emoji-compact.json';
+import gemoji from 'gemoji';
 
-const emojis = emojisList.filter((p) => p.length === 4);
+const now = new Date();
+const isDecember = now.getMonth() === 11;
+const isChristmas = (p) =>
+  p.description.toLowerCase().indexOf('christmas') !== -1 ||
+  p.tags.includes('christmas') ||
+  p.tags.includes('winter') ||
+  p.tags.includes('santa');
+
+const emojis = gemoji
+  .filter((p) => {
+    return p ? isDecember && isChristmas(p) : true;
+  })
+  .map((p) => p.emoji);
 
 export default {
   name: 'Team',
