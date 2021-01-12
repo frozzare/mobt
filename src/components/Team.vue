@@ -90,9 +90,7 @@ const isChristmas = (p) =>
   p.tags.includes('santa');
 
 const emojis = gemoji
-  .filter((p) => {
-    return p ? isDecember && isChristmas(p) : true;
-  })
+  .filter((p) => (isDecember ? isChristmas(p) : true))
   .map((p) => p.emoji);
 
 export default {
