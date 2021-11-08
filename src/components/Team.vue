@@ -8,14 +8,40 @@
         <div class="relative flex items-stretch flex-grow focus-within:z-10">
           <input
             type="text"
-            class="focus:ring-indigo-500 focus:border-indigo-500 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300"
+            class="
+              focus:ring-indigo-500 focus:border-indigo-500
+              block
+              w-full
+              rounded-none rounded-l-md
+              sm:text-sm
+              border-gray-300
+            "
             placeholder="Name"
             v-model="name"
             v-on:keyup.enter="addName"
           />
         </div>
         <button
-          class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+          class="
+            -ml-px
+            relative
+            inline-flex
+            items-center
+            space-x-2
+            px-4
+            py-2
+            border border-gray-300
+            text-sm
+            font-medium
+            rounded-r-md
+            text-gray-700
+            bg-gray-50
+            hover:bg-gray-100
+            focus:outline-none
+            focus:ring-1
+            focus:ring-indigo-500
+            focus:border-indigo-500
+          "
           @click="addName"
         >
           <span>Add</span>
@@ -45,7 +71,26 @@
         </div>
         <div class="flex">
           <button
-            class="-ml-px relative inline-flex items-center space-x-2 px-4 py-1 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+            class="
+              -ml-px
+              relative
+              inline-flex
+              items-center
+              space-x-2
+              px-4
+              py-1
+              border border-gray-300
+              text-sm
+              font-medium
+              rounded-md
+              text-gray-700
+              bg-gray-50
+              hover:bg-gray-100
+              focus:outline-none
+              focus:ring-1
+              focus:ring-indigo-500
+              focus:border-indigo-500
+            "
             @click="skip"
           >
             <span>Skip</span>
@@ -64,7 +109,26 @@
             </div>
             <a
               role="button"
-              class="-ml-px relative inline-flex items-center space-x-2 px-4 py-1 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+              class="
+                -ml-px
+                relative
+                inline-flex
+                items-center
+                space-x-2
+                px-4
+                py-1
+                border border-gray-300
+                text-sm
+                font-medium
+                rounded-md
+                text-gray-700
+                bg-gray-50
+                hover:bg-gray-100
+                focus:outline-none
+                focus:ring-1
+                focus:ring-indigo-500
+                focus:border-indigo-500
+              "
               title="Remove team member"
               @click="removeName(index)"
             >
@@ -79,7 +143,7 @@
 
 <script>
 import { store } from '../store';
-import gemoji from 'gemoji';
+import { gemoji } from 'gemoji';
 
 const now = new Date();
 const isDecember = now.getMonth() === 11;
